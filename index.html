@@ -1,0 +1,136 @@
+<!doctype html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#101315">
+  <meta name="application-name" content="Drop Zone Coach Fortnite">
+  <meta name="description" content="Drop Zone, le coach Fortnite pour progresser chaque jour.">
+  <meta name="mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <title>Drop Zone Coach Fortnite | Analyse, entraîne-toi, progresse</title>
+  <link rel="icon" href="icon.svg" type="image/svg+xml">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@500;600;700;800&family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+  <link rel="manifest" href="manifest.json">
+</head>
+<body>
+  <div class="onboarding" id="onboarding" aria-hidden="false">
+    <div class="onboarding-panel">
+      <div class="onboarding-brand"><span class="brand-mark">DZ</span><span>DROP ZONE <small>COACHING PRO</small></span></div>
+      <div class="onboarding-progress"><span></span></div>
+      <div class="onboarding-step active" data-step="1"><p class="eyebrow">ÉTAPE 01 / 05</p><h2>Choisis ton<br><span>pseudo.</span></h2><p class="onboarding-copy">L’IA l’utilisera pour te parler. Ne mets pas ton vrai nom : choisis un pseudo qui ne permet pas de t’identifier.</p><div class="pseudo-field"><span>@</span><input id="pseudo-input" type="text" maxlength="16" placeholder="Ex : Lynx_7" autocomplete="off"><button id="pseudo-next" type="button">Continuer <b>→</b></button></div></div>
+      <div class="onboarding-step" data-step="2"><p class="eyebrow">ÉTAPE 02 / 05</p><h2>On continue par<br><span>ton setup.</span></h2><p class="onboarding-copy">Pour te proposer les bons exercices, dis-nous sur quoi tu joues.</p><div class="choice-grid two-columns"><button class="choice" data-question="platform" data-value="PC"><span class="choice-icon">▣</span><strong>PC</strong><small>Performance &amp; précision</small></button><button class="choice" data-question="platform" data-value="Console"><span class="choice-icon">◈</span><strong>Console</strong><small>PlayStation, Xbox ou Switch</small></button></div></div>
+      <div class="onboarding-step" data-step="3"><p class="eyebrow">ÉTAPE 03 / 05</p><h2>Comment tu<br><span>joues ?</span></h2><p class="onboarding-copy">Les drills ne sont pas les mêmes selon tes contrôles.</p><div class="choice-grid two-columns"><button class="choice" data-question="input" data-value="Clavier / souris"><span class="choice-icon">⌨</span><strong>Clavier / souris</strong><small>Édits &amp; aim précis</small></button><button class="choice" data-question="input" data-value="Manette"><span class="choice-icon">⌁</span><strong>Manette</strong><small>Build &amp; aim assist</small></button></div></div>
+      <div class="onboarding-step" data-step="4"><p class="eyebrow">ÉTAPE 04 / 05</p><h2>Ton terrain<br><span>de jeu ?</span></h2><p class="onboarding-copy">On calibrera ton programme sur ce que tu veux vraiment gagner.</p><div class="choice-grid two-columns"><button class="choice" data-question="mode" data-value="Build"><span class="choice-icon">⬡</span><strong>Build</strong><small>Constructions &amp; fights</small></button><button class="choice" data-question="mode" data-value="Zero Build"><span class="choice-icon">◉</span><strong>Zero Build</strong><small>Rotation &amp; positionnement</small></button></div></div>
+      <div class="onboarding-step" data-step="5"><p class="eyebrow">ÉTAPE 05 / 05</p><h2>Quel est ton<br><span>objectif ?</span></h2><p class="onboarding-copy">Une direction claire rend chaque minute d'entraînement utile.</p><div class="choice-grid two-columns"><button class="choice" data-question="goal" data-value="Gagner mes fights"><span class="choice-icon">✦</span><strong>Gagner mes fights</strong><small>Devenir plus décisif</small></button><button class="choice" data-question="goal" data-value="Jouer en compétition"><span class="choice-icon">♛</span><strong>Jouer en compétition</strong><small>Passer au niveau supérieur</small></button></div></div>
+      <div class="onboarding-footer"><button class="back-button" id="onboarding-back" hidden>← Retour</button><span id="onboarding-note">Sélectionne une réponse pour continuer</span><button class="skip-button" id="onboarding-skip">Passer</button></div>
+    </div>
+  </div>
+  <section class="chat-drawer" id="chat-drawer" aria-label="Chat avec le coach IA">
+    <div class="chat-header"><div><span class="coach-avatar small">✺</span><div><strong>Coach Drop Zone</strong><small><i></i> En ligne</small></div></div><button id="close-chat" aria-label="Fermer le chat">×</button></div>
+    <div class="voice-settings"><button type="button" id="voice-mode" class="voice-mode" aria-pressed="false">◉ Mode vocal</button><label for="voice-select">Voix</label><select id="voice-select" aria-label="Choisir une voix"><option>Chargement...</option></select><label for="voice-volume">Volume</label><input id="voice-volume" type="range" min="20" max="80" value="55" aria-label="Volume de la voix"><button type="button" id="stop-voice" class="stop-voice" title="Arrêter la voix" aria-label="Arrêter la voix">■</button></div>
+    <div class="chat-messages" id="chat-messages"><div class="chat-message coach">Salut <strong class="chat-pseudo">joueur</strong> ! Je peux t’aider sur tes fights, tes edits, tes rotations ou ton mental. Quelle est ta priorité ?<small>Maintenant</small></div></div>
+    <form class="chat-form" id="chat-form"><input id="chat-input" type="text" placeholder="Écris ta question..." autocomplete="off"><button type="button" id="voice-button" aria-label="Parler au coach" title="Parler au coach">🎙️</button><button type="submit" aria-label="Envoyer le message">→</button></form>
+    <p class="chat-disclaimer">Coach IA d’entraînement · Ne partage pas d’informations personnelles</p>
+  </section>
+  <button class="chat-launcher" id="chat-launcher" aria-label="Ouvrir le chat du coach">✺ <span>Parler au coach</span></button>
+  <section class="customization-page" id="customization-page" aria-hidden="true">
+    <div class="customization-header"><div><p class="eyebrow">TON ESPACE</p><h2>Personnalisation</h2><p>Change l’ambiance de Drop Zone. Les changements sont enregistrés automatiquement.</p></div><button class="customization-close" id="close-customization" aria-label="Fermer la personnalisation">×</button></div>
+    <div class="customization-layout">
+      <div class="customization-controls">
+        <section class="custom-section"><div class="section-title"><div><p class="eyebrow">01 / AMBIANCE</p><h3>Choisis ton thème</h3></div><span id="theme-label">Orange</span></div><div class="theme-grid">
+          <button class="theme-choice active" data-theme="orange"><i></i><strong>🟠 Orange</strong><small>Compétitif</small></button>
+          <button class="theme-choice" data-theme="blue"><i></i><strong>🔵 Bleu</strong><small>Propre et moderne</small></button>
+          <button class="theme-choice" data-theme="yellow"><i></i><strong>🟡 Jaune</strong><small>Énergique</small></button>
+          <button class="theme-choice" data-theme="purple"><i></i><strong>🟣 Violet</strong><small>Futuriste</small></button>
+          <button class="theme-choice" data-theme="red"><i></i><strong>🔴 Rouge</strong><small>Agressif</small></button>
+          <button class="theme-choice" data-theme="green"><i></i><strong>🟢 Vert</strong><small>Dynamique</small></button>
+          <button class="theme-choice" data-theme="black"><i></i><strong>⚫ Noir</strong><small>Élégant</small></button>
+          <button class="theme-choice" data-theme="rgb"><i></i><strong>🌈 RGB</strong><small>Animé</small></button>
+          <button class="theme-choice custom-theme" data-theme="custom"><i></i><strong>✦ Perso</strong><small>Tes couleurs</small></button>
+        </div></section>
+        <section class="custom-section"><div class="section-title"><div><p class="eyebrow">02 / IDENTITÉ</p><h3>Style de l’interface</h3></div></div><div class="style-grid"><button class="style-choice active" data-style="minimaliste">Minimaliste</button><button class="style-choice" data-style="gaming">Gaming</button><button class="style-choice" data-style="futuriste">Futuriste</button><button class="style-choice" data-style="neon">Néon</button><button class="style-choice" data-style="esport">Compétitif / Esport</button><button class="style-choice" data-style="clair">Clair</button><button class="style-choice" data-style="sombre">Sombre</button></div></section>
+        <section class="custom-section"><div class="section-title"><div><p class="eyebrow">03 / DISPOSITION</p><h3>Choisis ton interface</h3></div></div><div class="layout-grid"><button class="layout-choice active" data-layout="dashboard"><strong>▦ Dashboard</strong><small>Tout voir en un coup d’œil</small></button><button class="layout-choice" data-layout="focus"><strong>◈ Focus</strong><small>La séance au centre</small></button><button class="layout-choice" data-layout="compact"><strong>≡ Compact</strong><small>Rapide et compétitif</small></button></div></section>
+        <section class="custom-section"><div class="section-title"><div><p class="eyebrow">04 / PALETTE</p><h3>Couleurs personnalisées</h3></div><span class="auto-save">● AUTO-SAVE</span></div><div class="color-grid"><label>Principale<input type="color" data-color="primary" value="#ff7954"></label><label>Secondaire<input type="color" data-color="secondary" value="#83e1cb"></label><label>Arrière-plan<input type="color" data-color="background" value="#080c0d"></label><label>Boutons<input type="color" data-color="button" value="#ff7954"></label><label>Textes<input type="color" data-color="text" value="#fffdf7"></label><label>Bordures<input type="color" data-color="border" value="#43514e"></label><label>Icônes<input type="color" data-color="icon" value="#83e1cb"></label><label>Chat<input type="color" data-color="chat" value="#1d2526"></label><label>Micro / indicateur<input type="color" data-color="mic" value="#ff7954"></label></div></section>
+      </div>
+      <aside class="custom-preview"><div class="preview-label"><span>APERÇU EN DIRECT</span><i></i></div><div class="preview-window"><div class="preview-top"><span class="preview-logo">DZ</span><span>DROP ZONE</span><b>⌁</b></div><div class="preview-hero"><small>COACHING PRO</small><strong>PRÊT À <em>DOMINER</em> ?</strong></div><div class="preview-stats"><span></span><span></span><span></span></div><div class="preview-chat"><div class="preview-chat-avatar">✺</div><div><strong>Coach IA</strong><p>Ta prochaine game commence ici.</p></div></div><div class="preview-mic">🎙️</div></div><p class="preview-note">Les couleurs du dashboard et du chat vocal suivent ce thème.</p></aside>
+    </div>
+  </section>
+  <div class="app-shell">
+    <aside class="sidebar">
+      <a class="brand" href="#top" aria-label="Drop Zone accueil">
+        <span class="brand-mark">DZ</span>
+        <span><strong>DROP</strong><small>ZONE</small></span>
+      </a>
+
+      <div class="profile-mini">
+        <div class="avatar user-initials">J</div>
+        <div><strong class="profile-pseudo">Joueur</strong></div>
+        <button class="icon-button" title="Paramètres" aria-label="Ouvrir les paramètres">⚙</button>
+      </div>
+
+      <nav class="nav-list" aria-label="Navigation principale">
+        <p class="nav-label">Ton espace</p>
+        <a class="nav-item active" href="#top"><span class="nav-icon">⌂</span>Vue d’ensemble</a>
+        <a class="nav-item" href="#training"><span class="nav-icon">◈</span>Entraînement <b>3</b></a>
+        <a class="nav-item" href="#progress"><span class="nav-icon">↗</span>Progression</a>
+        <a class="nav-item" href="#missions"><span class="nav-icon">✦</span>Missions</a>
+        <p class="nav-label second">Ressources</p>
+        <a class="nav-item" href="#library"><span class="nav-icon">▤</span>Bibliothèque</a>
+        <a class="nav-item" href="#coach"><span class="nav-icon">✺</span>Coach IA <em>NOUVEAU</em></a>
+      </nav>
+
+      <div class="sidebar-footer">
+        <div class="streak-card"><span class="flame">♨</span><div><strong>0 jour</strong><span>Série à commencer</span></div><span class="streak-dot"></span></div>
+        <div class="season-progress"><div><span>Saison 4</span><strong>0%</strong></div><div class="progress-track"><span style="width:0%"></span></div><small>0 XP gagnée pour le moment</small></div>
+      </div>
+    </aside>
+
+    <main class="main-content" id="top">
+      <header class="topbar">
+        <div class="breadcrumb"><span>TABLEAU DE BORD</span><i>/</i><strong>LUNDI 14 OCTOBRE</strong></div>
+        <div class="top-actions"><button class="outline-button install-app" id="install-app" type="button" hidden>⇩ Installer sur le PC</button><button class="streak-pill">♨ <span>0</span> jour</button><button class="notification" aria-label="Notifications">♢<span></span></button><button class="user-chip"><span class="avatar tiny user-initials">J</span><span class="top-pseudo">Joueur</span><b>⌄</b></button></div>
+      </header>
+
+      <section class="welcome-row">
+        <div><p class="eyebrow welcome-pseudo">BIENVENUE, JOUEUR</p><h1>Prêt à <span>dominer</span><br>ta prochaine game ?</h1><p class="subcopy">Ton entraînement est prêt. 42 minutes ciblées pour transformer tes erreurs en automatismes.</p></div>
+        <div class="rank-banner"><div class="rank-icon">✦</div><div><span>RANG ACTUEL</span><strong>NON CLASSÉ</strong><div class="rank-meter"><span style="width:0%"></span></div><small>0 / 1 000 RP</small></div><span class="rank-arrow">↗</span></div>
+      </section>
+
+      <section class="stats-grid" id="progress" aria-label="Statistiques de progression">
+        <article class="stat-card"><div class="stat-top"><span>WIN RATE</span><span class="stat-trend neutral">AUCUNE DONNÉE</span></div><strong>0<small>%</small></strong><div class="mini-chart chart-orange"><i style="height:0%"></i><i style="height:0%"></i><i style="height:0%"></i><i style="height:0%"></i><i style="height:0%"></i><i style="height:0%"></i><i style="height:0%"></i></div><p>Joue une partie pour commencer</p></article>
+        <article class="stat-card"><div class="stat-top"><span>K/D RATIO</span><span class="stat-trend neutral">AUCUNE DONNÉE</span></div><strong>0.00</strong><div class="mini-chart chart-teal"><i style="height:0%"></i><i style="height:0%"></i><i style="height:0%"></i><i style="height:0%"></i><i style="height:0%"></i><i style="height:0%"></i><i style="height:0%"></i></div><p>Ton ratio apparaîtra ici</p></article>
+        <article class="stat-card"><div class="stat-top"><span>HEURES CETTE SEMAINE</span><span class="stat-trend neutral">OBJECTIF 8H</span></div><strong>00<span class="muted">h</span> 00<span class="muted">m</span></strong><div class="progress-track large"><span style="width:0%"></span></div><p>Commence une séance pour progresser</p></article>
+        <article class="stat-card focus-card"><div class="stat-top"><span>FOCUS DU JOUR</span><span class="focus-status">À DÉFINIR</span></div><strong>0<span class="muted">%</span></strong><p>Aucune session enregistrée</p><button class="text-button" data-scroll="#training">Choisir une séance <span>→</span></button></article>
+      </section>
+
+      <div class="content-grid">
+        <section class="training-panel panel" id="training">
+          <div class="panel-heading"><div><p class="eyebrow">PROGRAMME DU JOUR</p><h2>Ta séance <span>42:00</span></h2></div><button class="outline-button" id="reset-session">Réinitialiser <span>↻</span></button></div>
+          <div class="session-list">
+            <article class="session-row current"><div class="session-check">1</div><div class="session-info"><div><strong>Échauffement mécanique</strong><span>10 min · Créatif</span></div><p>Active tes doigts et travaille la régularité.</p><div class="session-progress"><span style="width:0%"></span></div></div><span class="session-state">00:00</span></article>
+            <article class="session-row"><div class="session-check">2</div><div class="session-info"><div><strong>Édits sous pression</strong><span>15 min · Map 8249-3675-3112</span></div><p>Enchaîne les edits en gardant une crosshair stable.</p></div><span class="session-state">À VENIR</span></article>
+            <article class="session-row"><div class="session-check">3</div><div class="session-info"><div><strong>Piece control avancé</strong><span>12 min · Créatif</span></div><p>Prends le contrôle de chaque angle avant de peek.</p></div><span class="session-state">À VENIR</span></article>
+            <article class="session-row"><div class="session-check">4</div><div class="session-info"><div><strong>Match d’application</strong><span>5 min · Arène</span></div><p>Applique un seul point clé, sans sur-réfléchir.</p></div><span class="session-state">À VENIR</span></article>
+          </div>
+          <button class="primary-button wide" id="start-session"><span>▶</span> Commencer la séance <b>→</b></button>
+        </section>
+
+        <aside class="right-column">
+          <section class="coach-card panel" id="coach"><div class="coach-top"><div class="coach-avatar">✺</div><div><p class="eyebrow">COACH IA</p><h3>Une note pour toi</h3></div><span class="online-dot"></span></div><blockquote>“Tu gagnes tes fights quand tu prends l’initiative. Aujourd’hui, travaille ton premier edit : rapide, propre, décisif.”</blockquote><button class="dark-button" id="ask-coach">Ouvrir le chat vocal <span>◉</span></button></section>
+          <section class="missions panel" id="missions"><div class="panel-heading compact"><div><p class="eyebrow">À DÉBLOQUER</p><h3>Missions de la semaine</h3></div><a href="#missions">Tout voir</a></div><div class="mission"><span class="mission-icon orange">⚡</span><div><strong>Gagner 3 fights en hauteur</strong><div class="mission-bar"><span style="width:0%"></span></div><small>0 / 3 <b>+120 XP</b></small></div></div><div class="mission"><span class="mission-icon teal">◉</span><div><strong>Faire 1000 dégâts au shotgun</strong><div class="mission-bar teal-bar"><span style="width:0%"></span></div><small>0 / 1000 <b>+180 XP</b></small></div></div></section>
+        </aside>
+      </div>
+
+      <section class="bottom-section panel" id="library"><div class="panel-heading compact"><div><p class="eyebrow">POUR PROGRESSER</p><h2>Recommandé pour toi</h2></div><div class="library-tabs"><button class="tab active" data-filter="all">Tout</button><button class="tab" data-filter="guide">Guides</button><button class="tab" data-filter="vod">VOD review</button></div></div><div class="resource-grid"><article class="resource-card" data-type="guide"><div class="resource-image orange-art"><span>01</span><strong>LES 5 RÈGLES<br>DU PIECE CONTROL</strong></div><div class="resource-meta"><span>GUIDE · 08 MIN</span><b>→</b></div><h3>Arrête de subir tes fights</h3><p>La checklist simple avant chaque engagement.</p></article><article class="resource-card" data-type="vod"><div class="resource-image teal-art"><span>VOD</span><strong>ANALYSE<br>D’UN TOP 1</strong></div><div class="resource-meta"><span>VOD REVIEW · 14 MIN</span><b>→</b></div><h3>Pourquoi ce fight était gagné</h3><p>Lis le jeu et prends l’espace au bon moment.</p></article><article class="resource-card" data-type="guide"><div class="resource-image cream-art"><span>02</span><strong>ROTATIONS<br>INTELLIGENTES</strong></div><div class="resource-meta"><span>GUIDE · 06 MIN</span><b>→</b></div><h3>Arriver vivant en zone 5</h3><p>Trois repères pour choisir tes rotations.</p></article></div></section>
+      <footer><span>DROP ZONE · SAISON 4</span><span>Ta progression, ton rythme, ton game.</span></footer>
+    </main>
+  </div>
+  <div class="toast" role="status" aria-live="polite"></div>
+  <script src="app.js"></script>
+</body>
+</html>
